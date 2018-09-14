@@ -1,0 +1,17 @@
+{
+  "name": "uwyobigevent",
+  "version": "1.0.0",
+  "description": "Tools and workflow management to make The Big Event easier to facilitate.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "prettier": {
+    "useTabs": true
+  }
+}
