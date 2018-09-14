@@ -29,25 +29,23 @@ use Cake\View\Exception\MissingTemplateException;
 class PagesController extends AppController
 {
 
-    public function beforeFilter(Event $event) {
-        parent::beforeFilter($event);
-        $this->Auth->allow(['display']);
-    }
-
     /**
      * Displays a view
      *
-     * @return void|\Cake\Network\Response
-     * @throws \Cake\Network\Exception\NotFoundException When the view file could not
+     * @param array ...$path Path segments.
+     * @return \Cake\Http\Response|null
+     * @throws \Cake\Http\Exception\ForbiddenException When a directory traversal attempt.
+     * @throws \Cake\Http\Exception\NotFoundException When the view file could not
      *   be found or \Cake\View\Exception\MissingTemplateException in debug mode.
      */
-    public function display()
+    public function display(...$path)
     {
-        $path = func_get_args();
-
         $count = count($path);
         if (!$count) {
             return $this->redirect('/');
+        }
+        if (in_array('..', $path, true) || in_array('.', $path, true)) {
+            throw new ForbiddenException();
         }
         $page = $subpage = null;
 
@@ -61,9 +59,9 @@ class PagesController extends AppController
 
         try {
             $this->render(implode('/', $path));
-        } catch (MissingTemplateException $e) {
+        } catch (MissingTemplateException $exception) {
             if (Configure::read('debug')) {
-                throw $e;
+                throw $exception;
             }
             throw new NotFoundException();
         }

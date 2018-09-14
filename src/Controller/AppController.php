@@ -1,12 +1,7 @@
 <?php
 /**
-<<<<<<< HEAD
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
-=======
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
->>>>>>> 397086712279d550d383cfcdae5a246cb5535156
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
