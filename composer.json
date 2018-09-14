@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": ">=7.0",
-        "cakephp/cakephp": "^3.5",
+        "cakephp/cakephp": "^3.6.*",
         "mobiledetect/mobiledetectlib": "2.*",
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "*",
@@ -30,15 +30,36 @@
     },
     "autoload-dev": {
         "psr-4": {
+<<<<<<< HEAD
             "App\\Test\\": "tests",
             "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+=======
+            "App\\Test\\": "tests/",
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+>>>>>>> 397086712279d550d383cfcdae5a246cb5535156
         }
     },
     "scripts": {
         "post-install-cmd": "App\\Console\\Installer::postInstall",
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
+<<<<<<< HEAD
         "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump"
     },
     "minimum-stability": "stable",
     "prefer-stable": true
+=======
+        "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump",
+        "check": [
+            "@test",
+            "@cs-check"
+        ],
+        "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
+        "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
+        "test": "phpunit --colors=always"
+    },
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    }
+>>>>>>> 397086712279d550d383cfcdae5a246cb5535156
 }

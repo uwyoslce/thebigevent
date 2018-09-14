@@ -1,4 +1,5 @@
 <IfModule mod_rewrite.c>
+<<<<<<< HEAD
 	RewriteEngine On
 	RewriteBase /
 	RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
@@ -6,4 +7,9 @@
 
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule ^ index.php [L]
+=======
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+>>>>>>> 397086712279d550d383cfcdae5a246cb5535156
 </IfModule>

@@ -1,7 +1,12 @@
 <?php
 /**
+<<<<<<< HEAD
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+=======
+ * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+>>>>>>> 397086712279d550d383cfcdae5a246cb5535156
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
@@ -26,7 +31,7 @@ use Cake\ORM\TableRegistry;
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
+ * @link https://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller
 {
