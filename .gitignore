@@ -3,3 +3,5 @@
 /tmp/*
 /logs/*
 src/.idea/
+composer.phar
+composer-setup.php

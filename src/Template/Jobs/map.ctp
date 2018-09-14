@@ -355,8 +355,15 @@ function codeAddress(job) {
   }
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIkJ7GW6ZGqsoUabnt2hTGKfJX2Ss0-ZY&amp;callback=initJobMap"
-    async defer></script>
+<?php $googleMapsSrcUrl = $this->Url->build([
+	'https://maps.googleapis.com/maps/api/js',
+	'?' => [
+		'key' => Configure::read('Google.Maps.api_key'),
+		'callback' => 'initJobMap'
+	]
+]); ?>
+
+<script src="<?= $googleMapsSrcUrl ?>" async defer></script>
 
 <style type="text/css">
 	.job {
@@ -372,6 +379,8 @@ function codeAddress(job) {
 	}
 	.job .map {
 		position: absolute;
+		width: 100%;
+		height: 100%;
 	}
 </style>
 

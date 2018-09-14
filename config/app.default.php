@@ -401,7 +401,15 @@ return [
             ];
         }
     ],
-    'Cors' => [
-        
+    'Cors' => [ ],
+    'Algolia' => [
+        'Places' => [
+            'api_key' => '--ALGOLIA PLACES API KEY HERE--'
+        ]
+    ],
+    'Google' => [
+        'Maps' => [
+            'api_key' => '--GOOGLE MAPS API KEY HERE--'
+        ]
     ]
 ];

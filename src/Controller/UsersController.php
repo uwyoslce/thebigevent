@@ -338,6 +338,7 @@ class UsersController extends AppController
 	public function cas($mode = 'login', $user_identity_id = null) {
 
 		$cas = Configure::read('CAS');
+
 		\phpCAS::client(
 			CAS_VERSION_2_0, 
 			$cas['host'], 
@@ -346,7 +347,9 @@ class UsersController extends AppController
 			false
 		);
 
+
 		if( Configure::read('debug') ) {
+			\phpCAS::setDebug( LOGS . '/phpCAS.log');
 			\phpCAS::setNoCasServerValidation();
 		} else {
 			// TODO: implement the server certs
