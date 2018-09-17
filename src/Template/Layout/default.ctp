@@ -6,6 +6,15 @@ $cakeDescription = __("{0} at {1}", [
 	Configure::read('TheBigEvent.name'),
 	Configure::read('TheBigEvent.institutionName')
 ]);
+
+function
+
+getJSONconst($name, $toSerialize) {
+    return sprintf("const %s = %s;",
+        $name,
+        json_encode($toSerialize)
+    );
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,11 +39,10 @@ $cakeDescription = __("{0} at {1}", [
 	<?= $this->fetch('css') ?>
 	<?= $this->fetch('script') ?>
 
-    <script>
-        const globals = <?php echo json_encode([
-			'root' => $this->Url->build('/', true)
-		]); ?>;
-    </script>
+    
+    <?= $this->Html->scriptBlock( getJSONconst('global', [
+            'root' => $this->Url->build('/', true)
+    ]), ['defer' => true] ) ?>
 </head>
 <body>
 <nav class="top-bar expanded no-print" data-topbar role="navigation">

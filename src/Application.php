@@ -12,17 +12,16 @@
  * @since     3.3.0
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App;
 
 use App\Event\EmailListener;
-use App\Event\SlackListener;
 use App\Event\GeocodeListener;
-
+use App\Event\SlackListener;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
-use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
@@ -34,79 +33,80 @@ use Cake\Routing\Middleware\RoutingMiddleware;
  */
 class Application extends BaseApplication
 {
-    /**
-     * {@inheritDoc}
-     */
-    public function bootstrap()
-    {
-        // Call parent to load bootstrap from files.
-        parent::bootstrap();
-
-        if (PHP_SAPI === 'cli') {
-            try {
-                $this->addPlugin('Bake');
-            } catch (MissingPluginException $e) {
-                // Do not halt if the plugin is missing
-            }
-
-            $this->addPlugin('Migrations');
-        }
-
-        $EmailListener = new EmailListener(Configure::read('debug') ? 'test' : 'prod' );
-        $SlackListener = new SlackListener("https://hooks.slack.com/services/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");
-        $GeocodeListener = new GeocodeListener('AIzaSyBgZ6r9iFVt0Drqst8qgAwggfPi7I3iQ7M');
-
-        $this
-            ->getEventManager()
-            ->on($EmailListener)
-            ->on($SlackListener)
-            ->on($GeocodeListener)
-        ;
-        
-        $this->addPlugin('Cors', [
-        	'bootstrap' => true,
-	        'routes' => true
-        ]);
-
-        /*
-         * Only try to load DebugKit in development mode
-         * Debug Kit should not be installed on a production system
-         */
-        if (Configure::read('debug')) {
-            $this->addPlugin(\DebugKit\Plugin::class);
-        }
-    }
-
-    /**
-     * Setup the middleware queue your application will use.
-     *
-     * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to setup.
-     * @return \Cake\Http\MiddlewareQueue The updated middleware queue.
-     */
-    public function middleware($middlewareQueue)
-    {
-        $middlewareQueue
-            // Catch any exceptions in the lower layers,
-            // and make an error page/response
-            ->add(ErrorHandlerMiddleware::class)
-
-            // Handle plugin/theme assets like CakePHP normally does.
-            ->add(new AssetMiddleware([
-                'cacheTime' => Configure::read('Asset.cacheTime')
-            ]))
-
-            // Add routing middleware.
-            // Routes collection cache enabled by default, to disable route caching
-            // pass null as cacheConfig, example: `new RoutingMiddleware($this)`
-            // you might want to disable this cache in case your routing is extremely simple
-            ->add(new RoutingMiddleware($this, '_cake_routes_'))
-
-            // Add csrf middleware.
-            // ->add(new CsrfProtectionMiddleware([
-            //     'httpOnly' => true
-            // ]))
-            ;
-
-        return $middlewareQueue;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function bootstrap()
+	{
+		// Call parent to load bootstrap from files.
+		parent::bootstrap();
+		
+		if (PHP_SAPI === 'cli') {
+			try {
+				$this->addPlugin('Bake');
+			} catch (MissingPluginException $e) {
+				// Do not halt if the plugin is missing
+			}
+			
+			$this->addPlugin('Migrations');
+		}
+		
+		$eventManager = $this->getEventManager();
+		
+		if (Configure::check('debug')) {
+			$eventManager->on(new EmailListener(Configure::readOrFail('debug') ? 'test' : 'prod'));
+		}
+		
+		if (Configure::check('Slack.webhook')) {
+			$eventManager->on(new SlackListener(Configure::readOrFail('Slack.webhook')));
+		}
+		
+		if (Configure::check("Google.Geocoder.api_key")) {
+			$eventManager->on(new GeocodeListener(Configure::readOrFail('Google.Geocoder.api_key')));
+		}
+		
+		$this->addPlugin('Cors', [
+			'bootstrap' => true,
+			'routes' => true
+		]);
+		
+		/*
+		 * Only try to load DebugKit in development mode
+		 * Debug Kit should not be installed on a production system
+		 */
+		if (Configure::read('debug')) {
+			$this->addPlugin(\DebugKit\Plugin::class);
+		}
+	}
+	
+	/**
+	 * Setup the middleware queue your application will use.
+	 *
+	 * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to setup.
+	 * @return \Cake\Http\MiddlewareQueue The updated middleware queue.
+	 */
+	public function middleware($middlewareQueue)
+	{
+		$middlewareQueue
+			// Catch any exceptions in the lower layers,
+			// and make an error page/response
+			->add(ErrorHandlerMiddleware::class)
+			// Handle plugin/theme assets like CakePHP normally does.
+			->add(new AssetMiddleware([
+				'cacheTime' => Configure::read('Asset.cacheTime')
+			]))
+			// Add routing middleware.
+			// Routes collection cache enabled by default, to disable route caching
+			// pass null as cacheConfig, example: `new RoutingMiddleware($this)`
+			// you might want to disable this cache in case your routing is extremely simple
+			->add(new RoutingMiddleware($this, '_cake_routes_'))
+			
+			// Add csrf middleware.
+			// ->add(new CsrfProtectionMiddleware([
+			//     'httpOnly' => true
+			// ]))
+		;
+		
+		return $middlewareQueue;
+	}
 }

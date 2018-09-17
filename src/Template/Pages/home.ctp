@@ -62,7 +62,10 @@ $title = __("{0} at {1}", [
 		$jobCount = $Jobs->find()->count();
 		$maxJobs = Configure::read('TheBigEvent.jobs.maxJobs');
 		?>
-		<? if ($now->between($jobsOpenDateTime, $jobsCloseDateTime) && $jobCount < $maxJobs): ?>
+		<? if (
+		        $now->between($jobsOpenDateTime, $jobsCloseDateTime)
+                && $jobCount < $maxJobs
+        ): ?>
             <p class="append-top"><a href="/jobs/request" class="button button-uwyo-gold">Submit a Job Request</a></p>
 		<?php else: ?>
             <p class="append-top">Job Requests are currently closed. We look forward to serving you next year!</p>
