@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use App\Model\Entity\User;
 use Cake\Controller\Controller;
+use Cake\Core\Configure;
 use Cake\Event\Event;
 
 use Cake\ORM\TableRegistry;
@@ -30,6 +31,10 @@ use Cake\ORM\TableRegistry;
  */
 class AppController extends Controller
 {
+	/**
+	 * @var time_zone The time zone for which to render times.
+	 */
+	var $time_zone;
 
 	/**
 	 * Initialization hook method.
@@ -60,21 +65,23 @@ class AppController extends Controller
 				'home'
 			]
 		]);
+		
+		$AuthUser = $this->Auth->user();
+		
+		$this->set('AuthUser', $AuthUser );
+		
+		$this->time_zone = Configure::readOrFail("TheBigEvent.timeZone");
+		if(null != $AuthUser) {
+			$this->time_zone = $AuthUser['time_zone'];
+		}
+		$this->set( 'time_zone', $this->time_zone );
+		
 	}
 
 	public function beforeFilter(Event $event) {
-		parent::beforeFilter($event);
-
-		$AuthUser = $this->Auth->user();
-
-		$this->set('AuthUser', $AuthUser );
-
-		$time_zone = 'America/Denver';
-		if(null != $AuthUser) {
-			$time_zone = $AuthUser['time_zone'];
-		}
-		$this->set(compact('time_zone')); 
 		
+
+		parent::beforeFilter($event);
 	}
 
 	public function isAuthorized($user)

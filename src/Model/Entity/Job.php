@@ -61,4 +61,13 @@ class Job extends Entity
         return implode(' ', $chunks);
     }
 
+    protected function  _getAddress() {
+        return implode(' ', [
+            $this->_properties['contact_address_1'] . ';',
+            $this->_properties['contact_city'] . ',',
+            $this->_properties['contact_state'],
+            $this->_properties['contact_zip']
+        ]);
+    }
+
 }

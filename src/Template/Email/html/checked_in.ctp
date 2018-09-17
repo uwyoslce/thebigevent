@@ -1,6 +1,9 @@
-<p>Hello, <?= h($identity->user->full_name) ?>!</p>
+<?php
+    $eventName = \Cake\Core\Configure::read('TheBigEvent.name');
+?><p>Hello, <?= h($identity->user->full_name) ?>!</p>
 
-<p>You are checked in for The Big Event.  Please find the members of your group, pick up your tools from your site leader (listed below) listen for further instructions before heading to your job site.</p>
+<p>You are checked in for <?= $eventName ?>.
+    Please find the members of your group, pick up your tools from your site leader (listed below), and listen for further instructions before heading to your job site.</p>
 
 <?php if( empty( $identity->user->signatures) ): ?>
 
@@ -83,20 +86,10 @@
     <li>Do not, under any circumstances, drive a vehicle belonging to the job site owner.</li>
 </ul>
 
-<h2>When you're done at your job site...</h2>
-<p>If you're done well in advance of 1 PM, call your Site Leader to see if there are other jobs that could use your help.</p>
-
-<p>At 1 PM, please join Laramie Main Street, the UW Sustainability Club and UW SLCE at the Laramie Train Depot after The Big Event for a community volunteer appreciation BBQ with free food (courtesy of Ridley's and the AGR Fraternity) with live, solar powered music by...</p>
-
-<ul>
-    <li>Wood Belly, 11:30 - 12:30</li>
-    <li>Whippoorwill, 12:45- 1:45</li>
-    <li>Tallgrass, 2-3</li>
-</ul>
-
-<p><strong>BONUS:</strong> Altitude has brewed a special "Big Thanks Brown" that will be avaliable for sale with proceeds benefiting SLCE!</p>
-
-<p>From all of us at The Big Event, we sincerely thank you for being part of today.</p>
+<p>From all of us at <?= $eventName ?>, we sincerely thank you for being part of today.</p>
 
 <p>Sincerely,<br>
-The Big Event at The University of Wyoming</p>
+<?= __("{0} at {1}", [
+        $eventName,
+    \Cake\Core\Configure::read("TheBigEvent.institutionName")
+]); ?></p>

@@ -14,6 +14,13 @@ use Cake\Validation\Validator;
 class JobsTable extends Table
 {
 
+    public function afterSave(Event $event, Job $job) {
+        $event = new Event('Job.afterSave', $this, [
+            'entity' => $job
+        ]);
+        $this->getEventManager()->dispatch($event);
+    }
+
     /**
      * Initialize method
      *

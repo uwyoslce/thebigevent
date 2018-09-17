@@ -1,17 +1,17 @@
 {
     "name": "slce/uwyobigevent",
-    "description": "CakePHP skeleton app",
-    "homepage": "http://cakephp.org",
+    "description": "The Big Event",
+    "homepage": "https://uwyobigevent.com",
     "type": "project",
     "license": "MIT",
     "require": {
         "php": ">=7.0",
-        "cakephp/cakephp": "^3.6.*",
+        "cakephp/cakephp": "3.6.*",
         "mobiledetect/mobiledetectlib": "2.*",
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "*",
         "jasig/phpCAS": "1.3.*",
-        "endroid/qrcode": "^2.3",
+        "endroid/qr-code": "^2.3",
         "ozee31/cakephp-cors": "^1.1"
     },
     "require-dev": {

@@ -63,4 +63,7 @@
 <p>Thank you for being a part of The Big Event! We'll see you tomorrow at 9:00 AM.</p>
 
 <p>Sincerely,<br>
-The Big Event at The University of Wyoming</p>
+	<?= __("{0} at {1}", [
+		\Cake\Core\Configure::read("TheBigEvent.name"),
+		\Cake\Core\Configure::read("TheBigEvent.institutionName")
+	]); ?></p>

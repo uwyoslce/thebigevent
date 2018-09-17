@@ -1,4 +1,6 @@
- <script>
+<?php
+    use Cake\Core\Configure;
+?><script>
 	var jobs = <?= json_encode($jobs->toArray()); ?>;
 	var leaders = <?= json_encode( $leaders->toArray() ) ?>;
 	var current_user_role = <?= json_encode( $AuthUser['role'] ) ?>;
@@ -355,13 +357,14 @@ function codeAddress(job) {
   }
 </script>
 
-<?php $googleMapsSrcUrl = $this->Url->build([
-	'https://maps.googleapis.com/maps/api/js',
-	'?' => [
-		'key' => Configure::read('Google.Maps.api_key'),
-		'callback' => 'initJobMap'
-	]
-]); ?>
+<?php
+
+$googleMapsSrcUrl = 'https://maps.googleapis.com/maps/api/js' . '?' . http_build_query([
+	'key' => Configure::read('Google.Maps.api_key'),
+	'callback' => 'initJobMap'
+], '', '&amp;');
+
+?>
 
 <script src="<?= $googleMapsSrcUrl ?>" async defer></script>
 

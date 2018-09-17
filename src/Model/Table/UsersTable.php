@@ -5,6 +5,11 @@ namespace App\Model\Table;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
+/**
+ * Class UsersTable
+ * @package App\Model\Table
+ * @property
+ */
 class UsersTable extends Table
 {
 	public function initialize(array $config) {
@@ -27,11 +32,9 @@ class UsersTable extends Table
 			'foreignKey' => 'site_leader_id',
 			'bindingKey' => 'user_id'
 		]);
-
+		
 		$this->belongsToMany('Conditions', [
-			'foreignKey' => 'user_id',
-			'targetForeignKey' => 'condition_id',
-			'joinTable' => 'conditions_users'
+			'through' => 'condition_preferences'
 		]);
 
 		$this->belongsToMany('Groups', [
@@ -39,6 +42,18 @@ class UsersTable extends Table
 		]);
 
 		parent::initialize($config);
+	}
+
+	public function findLeaders(Query $query, array $options) {
+		return $query->where([
+			'role <>' => 'volunteer'
+		]);
+	}
+	
+	public function findVolunteers(Query $query, array $options) {
+		return $query->where([
+			'role' => 'volunteer'
+		]);
 	}
 
 	public function validationDefault(Validator $validator)

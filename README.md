@@ -1,51 +1,38 @@
-# CakePHP Application Skeleton
+# The Big Event management software
 
-[![Build Status](https://img.shields.io/travis/cakephp/app/master.svg?style=flat-square)](https://travis-ci.org/cakephp/app)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
+This application can be used to coordinate the logistics of planning The Big Event in your area.
 
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 3.x.
+The application can accept job requests, group management, and group-job assignments, as well as email.
 
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+# Installation
 
-## Installation
-
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
-
-If Composer is installed globally, run
+1. Clone the repository
 
 ```bash
-composer create-project --prefer-dist cakephp/app
+git clone http://github.com/uwyoslce/thebigevent
 ```
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
+2. Install the dependencies with Composer
 
 ```bash
-composer create-project --prefer-dist cakephp/app myapp
+php composer.phar install
 ```
 
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
+3. Set up the database
+Execute `config/schema/install.sql` against your database.
 
-```bash
-bin/cake server -p 8765
-```
+4. Copy `app.default.php` to `app.php` and make adjustments for your event.
 
-Then visit `http://localhost:8765` to see the welcome page.
+5. Set up beginning data
 
-## Update
+Visit `https://yourbigevent.com/conditions` to set up a pick list of conditions that you can assign to sites and users.  Users can explicitly opt in and opt out of conditions.  Example conditions include "Wheelchair Accessible" or "Dog(s) on site"
 
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
+Visit `https://yourbigevent.com/tools` to pre-populate a few tables needed for managing your event.
 
-## Configuration
+Visit `https://yourbigevent.com/documents` to set up documents that your users must sign.
 
-Read and edit `config/app.php` and setup the `'Datasources'` and any other
-configuration relevant for your application.
+Visit `https://yourbigevent.com/tasks` to set up tasks that can be associated with jobs
 
-## Layout
+Visit `https://yourbigevent.com/todo-templates` to set up templates for todo items that will be auto-assigned to your committee.
 
-The app skeleton uses a subset of [Foundation](http://foundation.zurb.com/) (v5) CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
+Visit `https://yourbigevent.com/jobs/map` to see jobs displayed on a map.

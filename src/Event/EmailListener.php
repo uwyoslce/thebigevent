@@ -2,6 +2,7 @@
 
 namespace App\Event;
 
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Event\EventListenerInterface;
 use Cake\Mailer\Email;
@@ -51,7 +52,9 @@ class EmailListener implements EventListenerInterface
 			->setTemplate('checked_in')
 			->setTo( $event->data['identity']->user->email )
 			//->setTo('bradkovach@gmail.com')
-			->setSubject("[The Big Event] You're checked in. Here's everything you need to know.")
+			->setSubject("[{0}] You're checked in. Here's everything you need to know.", [
+				Configure::read('TheBigEvent.name')
+			])
 			->send();
 	}
 
@@ -67,7 +70,9 @@ class EmailListener implements EventListenerInterface
 		->setEmailFormat('both')
 		->setTemplate('jobRequestConfirmation')
 		->setTo($job->contact_email)
-		->setSubject( sprintf("[The Big Event] We have received your job request!"))
+		->setSubject( __("[{0}] We have received your job request!", [
+			Configure::read('TheBigEvent.name')
+		]))
 		->send();
     }
 
@@ -83,7 +88,10 @@ class EmailListener implements EventListenerInterface
 		    ->setEmailFormat('both')
 		    ->setTemplate('welcomeUser')
 		    ->setTo($user->email)
-		    ->setSubject( __("[The Big Event] Welcome to The Big Event at The University of Wyoming!" ) )
+		    ->setSubject( __("[{0}] Welcome to {0} at {1}!", [
+		    	Configure::read("TheBigEvent.name"),
+			    Configure::read("TheBigEvent.institutionName")
+		    ]) )
 		    ->send();
     }
 

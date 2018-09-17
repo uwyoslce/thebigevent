@@ -199,8 +199,9 @@ Router::prefix('api', function( RouteBuilder $routes) {
 	$routes->scope('/users', function($routes) {
 		$routes->redirect('/login', [ 'controller' => 'Users', 'action' => 'login']);
 
+		// 2018-09-15: /users/leaders is now /users?finder=leaders
 		$routes
-			->connect('/leaders', ['controller' => 'Users', 'action' => 'leaders'])
+			->connect('/', ['controller' => 'Users', 'action' => 'users'], name("GetUsers"))
 			->setMethods(['GET']);
 
 		$routes->scope('/me', function($routes) {

@@ -4,7 +4,7 @@
 <div class="jobs view large-9 medium-8 columns content">
 	<h1><?php echo __("Identities") ?></h1>
 	<p>These are identities that are associated with your account.  They allow you to authenticate and access
-		The Big Event data in a variety of ways.
+		<?= \Cake\Core\Configure::read("TheBigEvent.name") ?> data in a variety of ways.
 	</p>
 	<p>
 		<?php echo $this->Form->postLink("New API Key") ?>
@@ -14,7 +14,7 @@
 			<?php if ($identity->protocol == "cas"): ?>
 				<div class="card">
 					<h3><?=h($identity->identifier) ?> via <?=h($CAS['name'])?></h3>
-					<p>Can be used to login to The Big Event via Single Sign-On with <?=h($CAS['name'])?>.</p>
+					<p>Can be used to login to <?= \Cake\Core\Configure::read("TheBigEvent.name") ?> via Single Sign-On with <?=h($CAS['name'])?>.</p>
 					<div class="key-value-pairs">
 						<div class="key-value-pairs__key-value-pair">
 							<span class="key-value-pairs__key-value-pair__key">Created</span>

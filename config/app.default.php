@@ -381,35 +381,216 @@ return [
      * To use database sessions, load the SQL file located at config/schema/sessions.sql
      */
     'Session' => [
-    	'cookie' => 'UWYOBIGVENT',
+        'cookie' => 'UWYOBIGVENT',
         'defaults' => 'php',
-	    'timeout' => 60 * 60 * 5 // 2 hours
+        'timeout' => 60 * 60 * 5, // 2 hours
     ],
 
+    'TheBigEvent' => [
+        /**
+         * The name of your volunteer event. The Big Event is usually fine
+         */
+        'name' => "The Big Event",
+
+        /**
+         * The name of the university/organization sponsoring the event.
+         */
+        'institutionName' => 'Example University',
+
+        /**
+         * The default time zone for displaying dates
+         */
+        'timeZone' => 'America/Denver',
+
+        /**
+         * Contact information
+         */
+        'contact' => [
+            /**
+             * A general inquiry email address
+             */
+            'email' => 'bigevent@uwyo.edu',
+
+            /**
+             * A general inquiry phone number
+             */
+            'phone' => '(307) 766-3117',
+
+            /**
+             * Address (used for bulk email and legal compliance)
+             */
+            'address' => [
+                '1000 E. University Ave',
+                'Dept 3625',
+                'Laramie, WY 82071',
+            ],
+        ],
+        /*
+         * Use these settings to control the Job Requests form.
+         * Job requests will be available if
+         * openDate <= now <= closeDate AND jobs.count() < maxJobs
+         *
+         * Set maxJobs to -1 if you do not want to cap the number of jobs.
+         */
+        'jobs' => [
+            /**
+             * The date that job requests are open
+             */
+            'openDate' => '2018-07-01',
+
+            /**
+             * The date the job requests will be closed
+             */
+            'closeDate' => '2018-10-05',
+
+            /**
+             * A numeric maximum of jobs to allow to be submitted.
+             */
+            'maxJobs' => 200,
+
+            /**
+             * A key => value list of referrers so that you can learn where
+             * job requests are coming from. Useful for marketing
+             */
+            'referrers' => [
+                'email' => 'Email Reminder',
+                'newspaper' => 'The Local Newspaper',
+                'media' => 'Radio/Television',
+                'internet' => 'Web Site',
+                'social' => 'Facebook/Twitter/Social Media',
+                'person' => 'Personal Referral',
+                'utility' => 'City of Laramie Water/Utility Bill',
+                'mailer' => 'Mailer',
+                'other' => 'Other',
+            ],
+
+            /**
+             * A list of agreements that job site owners must agree to. (checkbox clickwrap)
+             */
+            'agreements' => [
+                'I understand that under no circumstance will students use power tools or drive property owner’s vehicles during service project.',
+                'I understand that as the property owner, I must be present during the service and that if I am not, the job cannot be completed.',
+                'I understand that The Big Event and the University of Wyoming are under no obligation to provide or dispatch volunteers to my job site.',
+                'I understand that in the event of inclement weather, only job requests with indoor jobs will be completed.',
+            ],
+        ],
+
+        /**
+         * Information about the event
+         */
+        'event' => [
+            /**
+             * Date on which the event will be held
+             */
+            'date' => '2018-10-13',
+
+            /**
+             * Time that the event begins on `date`
+             */
+            'startTime' => '9:00 AM',
+
+            /**
+             * Time that the event formally ends on `date`
+             */
+            'endTime' => '1:00 PM',
+
+            /**
+             * The name or description of the event's kickoff location
+             * Example Usage: The kick-off event will be held at {{kickoffVenueName}}.
+             */
+            'kickoffVenueName' => 'Simpson Plaza',
+
+            /**
+             * The name of the community that is served by the event
+             * Example usage: {{TheBigEvent.name}}'s primary purpose is to say "thank you" to {{communityName}} through service.
+             */
+            'communityName' => "Laramie",
+        ],
+        /**
+         * Links to add to the header. All links will launch in a new window/tab
+         */
+        'headerLinks' => [
+            [
+                'link' => 'http://www.exampleuniversity.edu',
+                'label' => 'Example University',
+            ],
+            [
+                'link' => 'http://www.exampleuniversity.edu/Volunteering',
+                'label' => "Volunteer Information",
+            ],
+        ],
+    ],
+
+    /**
+     * CAS allows this site to authenticate against the institution's login system.
+     * 
+     * The following CAS servers are known to work with The Big Event.
+     * 
+     * Cassava CAS Server - CAS server for WordPress
+     * https://wordpress.org/plugins/wp-cas-server/
+     */
     'CAS' => [
-        'name' => 'UW WyoLogin',
-        'host' => 'bnrcas.uwyo.edu',
+        /**
+         * A friendly name that the volunteer should recognize
+         */
+        'name' => 'My University Login',
+
+        /**
+         * The host of the CAS authentication server
+         */
+        'host' => 'cas.exampleuniversity.edu',
+
+        /**
+         * The port on which the CAS authentication server serves HTTPS; usually port 443
+         */
         'port' => 443,
+
+        /**
+         * The root context. Formats the login url as https://{{CAS.host}}:{{CAS.port}}/{{CAS.context}}
+         */
         'context' => 'cas',
-        'cert' => '',
-        'user_builder' => function($user, $attributes) {
+
+        /**
+         * Location of certificate chain to validate.
+         */
+        'cert' => '/etc/ssl/mySigningAuthority.pem',
+
+        /**
+         * A function that builds a skeleton of a user account. Must return an Array.
+         * Required fields are username, email, first_name, last_name
+         *
+         */
+        'user_builder' => function ($user, $attributes) {
             return [
                 'username' => $user,
-                'email' => $user . "@uwyo.edu",
-	            'first_name' => strtoupper( substr($user, 0, 1) ),
-	            'last_name' => ucfirst( preg_replace("/[^A-Za-z]/", '', substr($user, 1) ) )
+                'email' => $attributes['email'],
+                'first_name' => $attributes['first_name'],
+                'last_name' => $attributes['last_name'],
             ];
-        }
+        },
     ],
-    'Cors' => [ ],
-    'Algolia' => [
-        'Places' => [
-            'api_key' => '--ALGOLIA PLACES API KEY HERE--'
-        ]
+    'Cors' => [],
+
+    /**
+     * Used to provide autosuggest as job site owners type their address
+     * Visit https://community.algolia.com/places/ for information
+     */
+	'Algolia' => [
+		'Places' => [
+			'api_key' => '--ALGOLIA PLACES API KEY HERE--'
+		]
     ],
-    'Google' => [
-        'Maps' => [
-            'api_key' => '--GOOGLE MAPS API KEY HERE--'
-        ]
-    ]
+    
+    /**
+     * Used for geocoding and map display
+     * Visit https://console.cloud.google.com/apis/credentials to generate keys
+     */
+	'Google' => [
+		'Geocoder' => [
+			'api_key' => '--Google Geocoding API key here--'
+		],
+		'Maps' => [
+			'api_key' => '--Google Maps Javascript API Key here'
+		]
+	]
 ];

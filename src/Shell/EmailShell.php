@@ -2,6 +2,7 @@
 namespace App\Shell;
 
 use Cake\Console\Shell;
+use Cake\Core\Configure;
 use Cake\Mailer\Email;
 
 class EmailShell extends Shell {
@@ -55,7 +56,9 @@ class EmailShell extends Shell {
                     'identity' => $identity,
                     'qr_source' => 'attachment'
                 ])
-                ->subject("[The Big Event] PLEASE READ! We'll see you tomorrow at 9 AM")
+                ->subject(__("[{0}] PLEASE READ! We'll see you tomorrow at 9 AM", [
+                	Configure::read("TheBigEvent.name")
+                ]) )
                 ->template('preflight')
                 ->emailFormat('html');
 

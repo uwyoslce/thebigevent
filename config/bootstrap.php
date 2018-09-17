@@ -197,21 +197,3 @@ Type::build('timestamp')
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
-
-use App\Event\EmailListener;
-$EmailListener = new EmailListener('default');
-
-use App\Event\SlackListener;
-$SlackListener = new SlackListener("https://hooks.slack.com/services/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");
-
-use App\Event\GeocodeListener;
-$GeocodeListener = new GeocodeListener();
-
- 
-use Cake\Event\EventManager;
-$em = EventManager::instance();
-$em->on($EmailListener);
-$em->on($SlackListener);
-$em->on($GeocodeListener);
-
-Plugin::load('Cors', ['bootstrap' => true, 'routes' => false]);

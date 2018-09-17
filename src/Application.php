@@ -14,6 +14,10 @@
  */
 namespace App;
 
+use App\Event\EmailListener;
+use App\Event\SlackListener;
+use App\Event\GeocodeListener;
+
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
@@ -47,6 +51,22 @@ class Application extends BaseApplication
 
             $this->addPlugin('Migrations');
         }
+
+        $EmailListener = new EmailListener(Configure::read('debug') ? 'test' : 'prod' );
+        $SlackListener = new SlackListener("https://hooks.slack.com/services/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");
+        $GeocodeListener = new GeocodeListener('AIzaSyBgZ6r9iFVt0Drqst8qgAwggfPi7I3iQ7M');
+
+        $this
+            ->getEventManager()
+            ->on($EmailListener)
+            ->on($SlackListener)
+            ->on($GeocodeListener)
+        ;
+        
+        $this->addPlugin('Cors', [
+        	'bootstrap' => true,
+	        'routes' => true
+        ]);
 
         /*
          * Only try to load DebugKit in development mode

@@ -1,12 +1,14 @@
 <?php
 namespace App\Controller;
 
+use App\Controller\AppController;
+
 use Cake\Chronos\Date;
 use Cake\Core\Configure;
-use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Log\Log;
 use Cake\Mailer\Email;
+use Cake\ORM\TableRegistry;
 
 /**
  * Class UsersController
@@ -146,7 +148,7 @@ class UsersController extends AppController
 						$event = new Event('User.checkedIn', $this, [
 							'identity' => $identity
 						]);
-						$this->eventManager()->dispatch($event);
+						$this->getEventManager()->dispatch($event);
 					}
 				}
 			}
@@ -563,6 +565,63 @@ class UsersController extends AppController
 		$this->set('identities', $identities);
 		$this->set('_serialize', ['identities']);
 		
+	}
+	
+	public function conditions($user_id = null) {
+		/**
+		 * Tables
+		 */
+		$ConditionPreferences = TableRegistry::get('ConditionPreferences');
+		
+		if( $user_id == null ) {
+			$user_id = $this->Auth->user('user_id');
+		}
+		
+		$user = $this->Users->findByUserId($user_id)->first();
+		
+		if( $this->request->is('post') ) {
+			// save incoming
+			
+			
+			$condition_preferences = array_map(function($pref) use ($user_id) {
+				$pref['user_id'] = $user_id;
+				$pref['condition_id'] = (int) $pref['condition_id'];
+				return $pref;
+			}, $this->request->getData('ConditionPreference'));
+			
+			$condition_preferences = array_filter($condition_preferences, function($pref) {
+				return $pref['preference'] != '0';
+			});
+			
+			$ConditionPreferences->deleteAll([
+				'user_id' => $user_id
+			]);
+			
+			if( $condition_preferences ) {
+				$conditionPreferencesEntities = $ConditionPreferences->newEntities($condition_preferences);
+				if( $ConditionPreferences->saveMany($conditionPreferencesEntities) ) {
+					$this->Flash->success( __('User Condition Preferences updated') );
+				}
+			}
+			
+		}
+		
+		
+		
+		$currentPreferences = $ConditionPreferences->find('list', [
+			'keyField' => 'condition_id',
+			'valueField' => 'preference',
+			'conditions' => [
+				'user_id' => $user_id
+			]
+		]);
+		
+		$conditions = $this->Users->Conditions->find('all');
+		
+		$this->set('title', __('User Condition Preferences') );
+		$this->set('currentPreferences', $currentPreferences->toArray());
+		$this->set('conditions', $conditions);
+		$this->set('user', $user );
 	}
 
 }

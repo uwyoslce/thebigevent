@@ -4,15 +4,21 @@ namespace App\Controller\Api;
 
 class UsersController extends AppController
 {
-	public function leaders() {
-
-		$this->set('users', $this->Users->find('all', [
-			'conditions' => [
-				'role' => 'committee'
-			]
-		]));
-		$this->set('_serialize', ['users']);
+	/**
+	 * Get users (paginated)
+	 * query: finder	a finder query to use to create the list
+	 * GET /users/
+	 */
+	public function users() {
+		$finder = $this->request->getQuery('finder', 'all');
+		if( in_array($finder, ['all', 'leaders', 'volunteers']) ) {
+			$query = $this->Users->find($finder);
+			$this->set('users', $this->paginate($query));
+			$this->set('paging', $this->getPaging('Users'));
+			$this->set('_serialize', ['users', 'paging']);
+		}
 	}
+
 	/**
 	 * Get a user by username. If username is null, the current user is returned
 	 * GET /users/me

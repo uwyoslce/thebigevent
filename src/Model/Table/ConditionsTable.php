@@ -42,9 +42,7 @@ class ConditionsTable extends Table
             'joinTable' => 'jobs_conditions'
         ]);
 	    $this->belongsToMany('Users', [
-		    'foreignKey' => 'condition_id',
-		    'targetForeignKey' => 'user_id',
-		    'joinTable' => 'conditions_users'
+		    'through' => "ConditionPreferences"
 	    ]);
     }
 
