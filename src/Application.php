@@ -53,10 +53,8 @@ class Application extends BaseApplication
 		
 		$eventManager = $this->getEventManager();
 		
-		if (Configure::check('debug')) {
-			$eventManager->on(new EmailListener(Configure::readOrFail('debug') ? 'test' : 'prod'));
-		}
-		
+		$eventManager->on(new EmailListener(Configure::readOrFail('debug') ? 'test' : 'prod'));
+				
 		if (Configure::check('Slack.webhook')) {
 			$eventManager->on(new SlackListener(Configure::readOrFail('Slack.webhook')));
 		}
