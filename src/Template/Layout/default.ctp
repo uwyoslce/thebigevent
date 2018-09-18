@@ -40,7 +40,7 @@ getJSONconst($name, $toSerialize) {
 	<?= $this->fetch('script') ?>
 
     
-    <?= $this->Html->scriptBlock( getJSONconst('global', [
+    <?= $this->Html->scriptBlock( getJSONconst('globals', [
             'root' => $this->Url->build('/', true)
     ]), ['defer' => true] ) ?>
 </head>
