@@ -4,7 +4,7 @@
     $kickoffStartTime = \Cake\Core\Configure::read('TheBigEvent.event.startTime');
     $communityName = \Cake\Core\Configure::read('TheBigEvent.event.communityName');
     $email = \Cake\Core\Configure::read('TheBigEvent.contact.email');
-    $date = \Cake\Chronos\Chronos( \Cake\Core\Configure::read('TheBigEvent.event.date') );
+    $date = new \Cake\Chronos\Chronos( \Cake\Core\Configure::read('TheBigEvent.event.date') );
 ?><p>Thank you for registering to volunteer at <?= $eventName ?>!
     <?= $eventName ?>'s primary purpose is to say "thank you" to our <?= $communityName ?> community through service.
     We are excited that you will be joining in this day of giving back to our community that gives so much to us. </p>

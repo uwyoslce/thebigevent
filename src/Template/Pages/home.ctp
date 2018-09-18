@@ -55,7 +55,7 @@ $title = __("{0} at {1}", [
                 &&  $jobCount < $maxJobs
         ): ?>
             <p class="append-top">
-                <?= $this->Html->link("Submit a Job Request", [], [
+                <?= $this->Html->link("Submit a Job Request", ['controller' => 'jobs', 'action' => 'request'], [
                     "class" => "button button-uwyo-gold"
                 ]) ?>
             </p>

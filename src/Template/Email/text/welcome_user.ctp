@@ -4,7 +4,7 @@ $kickoffVenueName = \Cake\Core\Configure::read('TheBigEvent.event.kickoffVenueNa
 $kickoffStartTime = \Cake\Core\Configure::read('TheBigEvent.event.startTime');
 $communityName = \Cake\Core\Configure::read('TheBigEvent.event.communityName');
 $email = \Cake\Core\Configure::read('TheBigEvent.contact.email');
-$date = \Cake\Chronos\Chronos( \Cake\Core\Configure::read('TheBigEvent.event.date') );
+$date = new \Cake\Chronos\Chronos( \Cake\Core\Configure::read('TheBigEvent.event.date') );
 ?>Thank you for registering to volunteer at <?= $eventName ?>! <?= $eventName ?>'s primary purpose is to say "thank you" to our <?= $communityName ?> community through service. We are excited that you will be joining in this day of giving back to our community that gives so much to us. A few things you need to know:
 
 1. If you are registered as a group, there is a high likelihood that your group will be broken into smaller groups to accommodate the jobs for our community members and to ensure that each community member receives the help they need.

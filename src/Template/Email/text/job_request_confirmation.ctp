@@ -5,7 +5,7 @@ $kickoffVenueName = \Cake\Core\Configure::read('TheBigEvent.event.kickoffVenueNa
 $kickoffStartTime = \Cake\Core\Configure::read('TheBigEvent.event.startTime');
 $communityName = \Cake\Core\Configure::read('TheBigEvent.event.communityName');
 $email = \Cake\Core\Configure::read('TheBigEvent.contact.email');
-$date = \Cake\Chronos\Chronos(\Cake\Core\Configure::read('TheBigEvent.event.date'));
+$date = new \Cake\Chronos\Chronos(\Cake\Core\Configure::read('TheBigEvent.event.date'));
 
 ?>Hello, <?php echo h($job->contact_first_name); ?>!
 
