@@ -50,14 +50,14 @@ $title = __("{0} at {1}", [
 		$jobCount = $Jobs->find()->count();
 		$maxJobs = Configure::read('TheBigEvent.jobs.maxJobs');
 		?>
-		<? if (
+		<?php if (
 		            $now->between($jobsOpenDateTime, $jobsCloseDateTime)
                 &&  $jobCount < $maxJobs
         ): ?>
             <p class="append-top">
                 <?= $this->Html->link("Submit a Job Request", [], [
                     "class" => "button button-uwyo-gold"
-                ]); ?>
+                ]) ?>
             </p>
 		<?php else: ?>
             <p class="append-top">

@@ -70,7 +70,7 @@ use Cake\Core\Configure;
                 </tr>
 			
 			<?php endforeach; ?>
-		<? endif; ?>
+		<?php endif; ?>
         </tbody>
         <tfoot></tfoot>
     </table>
