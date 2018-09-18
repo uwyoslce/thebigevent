@@ -49,7 +49,12 @@ class GeocodeListener implements EventListenerInterface
 
         $result = $resp->json;
 
-        if( $result['results'][0]['geometry']['location'] ) {
+        if(
+	            isset( $result['results'] )
+	        &&  isset( $result['results'][0] )
+	        &&  isset( $result['results'][0]['geometry'] )
+	        &&  isset( $result['results'][0]['geometry']['location'] )
+        ) {
             $location =  $result['results'][0]['geometry']['location'] ;
             $metas = $Meta->newEntities([
                 [

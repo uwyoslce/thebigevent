@@ -3,6 +3,10 @@
     { display: none; }
 }
 
+td .button {
+    margin-bottom: 0;
+}
+
 .component .is-saving,
 .component .is-saved,
 .component .is-error,

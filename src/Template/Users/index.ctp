@@ -21,31 +21,31 @@
 					'active' => ('all' == $role),
 					'url' => [
 						'action' => 'index',
-						'all'
-					]
+						'all',
+					],
 				],
 				'Administrators' => [
 					'active' => ('admin' == $role),
 					'url' => [
 						'action' => 'index',
-						'admin'
-					]
+						'admin',
+					],
 				],
 				'Committee Members' => [
 					'active' => ('committee' == $role),
 					'url' => [
 						'action' => 'index',
-						'committee'
-					]
+						'committee',
+					],
 				],
 				'Volunteers' => [
 					'active' => ('volunteer' == $role),
 					'url' => [
 						'action' => 'index',
-						'volunteer'
-					]
-				]
-			]
+						'volunteer',
+					],
+				],
+			],
 		];
 		echo $this->element('Refiner', ['refinerGroups' => $refinerGroups]);
 		?>
@@ -62,11 +62,11 @@
 				<?php endif; ?>
                 <th>&nbsp;</th>
                 <th><?= h(__('Full Name & Username')) ?></th>
-                <th><?= h(__('Email')) ?></th>
                 <th><?= h(__('Phone Number')) ?></th>
                 <th><?= h(__('Participating')) ?></th>
                 <th><?= h(__('Unsigned Signatures')) ?></th>
                 <th><?= h(__('Role')) ?></th>
+                <th><?= h(__('Email')) ?></th>
 
             </tr>
             </thead>
@@ -80,25 +80,17 @@
                     <td>
 						<?= $this->Html->link(__('Manage Conditions'), [
 							'action' => 'conditions',
-                            $user->user_id
+							$user->user_id,
 						],
-                            [
-                                    'class' => 'button button-uwyo-gold tiny'
-                            ]); ?>
+							[
+								'class' => 'button button-uwyo-gold tiny',
+							]); ?>
                     </td>
                     <td>
                         <strong><?= h($user->full_name) ?></strong><br>
                         @<?= h($user->username) ?>
                     </td>
-                    <td>
-						<?php
-						$emails[] = $user->email;
-						echo $this->Html->link(
-							__('Email {0}', [$user->first_name]),
-							sprintf('mailto:%s', $user->email)
-						)
-						?>
-                    </td>
+
                     <td>
 						<?php if (!empty($user->phone)): ?>
 							<?= h($user->phone) ?>
@@ -109,22 +101,47 @@
                     <td><?= ($user->participating) ? __("Yes") : __("No") ?></td>
                     <td><?= number_format($user->signatures_unsigned) ?></td>
                     <td>
-						<?php if ('admin' == $user->role) echo __('Administrator'); ?>
-						<?php if ('committee' == $user->role) echo __('Committee Member'); ?>
-						<?php if ('volunteer' == $user->role) echo __('Volunteer'); ?>
+						<?php if ('admin' == $user->role) {
+							echo __('Administrator');
+						}
+						?>
+						<?php if ('committee' == $user->role) {
+							echo __('Committee Member');
+						}
+						?>
+						<?php if ('volunteer' == $user->role) {
+							echo __('Volunteer');
+						}
+						?>
+                    </td>
+                    <td>
+						<?php
+						$emails[] = $user->email;
+						echo $this->Html->link(
+							__('Email {0}', [$user->first_name]),
+							sprintf('mailto:%s', $user->email),
+							['class' => 'button button-primary tiny']
+						)
+						?>
                     </td>
                 </tr>
 			<?php endforeach; ?>
             <tfoot>
             <tr>
+				<?php if (\Cake\Core\Configure::read('debug')): ?>
+                    <td>&nbsp;</td>
+				<?php endif; ?>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td><?= $this->Html->link(__('Email All'),
-						sprintf('mailto:%s', implode(';', $emails))
+						sprintf('mailto:%s', implode(';', $emails)),
+                            ['class' => 'button button-primary large']
 					) ?>
                 </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
             </tr>
             </tfoot>
         </table>

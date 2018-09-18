@@ -589,6 +589,9 @@ return [
 	 * - Maps should be restricted by HTTP Referrers
 	 */
 	'Google' => [
+        'Analytics' => [
+            'property_id' => '--property id here--'
+        ],
 		'Geocoder' => [
 			'api_key' => '--Google Geocoding API key here--'
 		],

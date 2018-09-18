@@ -1,10 +1,12 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Job;
+
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
+Use Cake\Event\Event;
 /**
  * Jobs Model
  *
