@@ -577,7 +577,8 @@ return [
 	 */
 	'Algolia' => [
 		'Places' => [
-			'api_key' => '--ALGOLIA PLACES API KEY HERE--'
+			'apiKey' => '--ALGOLIA PLACES API KEY HERE--',
+			'appId' => '--ALGOLIA PLACES APP ID HERE--'
 		]
 	],
 	
@@ -589,9 +590,9 @@ return [
 	 * - Maps should be restricted by HTTP Referrers
 	 */
 	'Google' => [
-        'Analytics' => [
-            'property_id' => '--property id here--'
-        ],
+		'Analytics' => [
+			'property_id' => '--GOOGLE ANALYTICS PROPERTY ID HERE--'
+		],
 		'Geocoder' => [
 			'api_key' => '--Google Geocoding API key here--'
 		],

@@ -41,8 +41,10 @@ getJSONconst($name, $toSerialize) {
 
     
     <?= $this->Html->scriptBlock( getJSONconst('globals', [
-            'root' => $this->Url->build('/', true)
-    ]), ['defer' => true] ) ?>
+		'root' => $this->Url->build('/', true),
+		'api_root' => $this->Url->build('/api', true),
+		'Algolia' => Configure::read('Algolia'),
+    ]) ) ?>
 </head>
 <body>
 <nav class="top-bar expanded no-print" data-topbar role="navigation">

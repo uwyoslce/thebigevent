@@ -534,8 +534,8 @@ $(function() {
 
 	// contact-address-1
 	var placesAutocomplete = places({
-		apiKey: "1e839858cc1230be575046f34bcf6a31",
-		appId: "pl0J3KHR6WLE",
+		apiKey: globals.Algolia.Places.apiKey, 
+		appId: globals.Algolia.Places.appId,
 		container: document.querySelector("#contact-address-1"),
 		aroundLatLng: "41.3149,-105.5666",
 		aroundRadius: 16 * 1000,
