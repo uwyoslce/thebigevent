@@ -10,7 +10,7 @@ use Cake\Core\Configure;
 <div class="jobs view large-9 medium-8 columns content">
     <h1><?= __("Condition Preferences") ?>
     </h1>
-    <p>Editing condition preferences for @<?= h($user->username) ?>. Select <em>Must Have</em> or <em>Can't Have</em> to
+    <p>Editing condition preferences for @<?= h($user->username); ?>. Select <em>Must Have</em> or <em>Can't Have</em> to
         to ensure participant is placed in a job that meets their preferences.
     </p>
 	
@@ -20,14 +20,14 @@ use Cake\Core\Configure;
         <tr>
 			<?php if (Configure::read('debug')): ?>
                 <th>
-					<?= __('condition_id') ?>
+					<?= __('condition_id'); ?>
                 </th>
 			<?php endif; ?>
             <th>
-				<?= __('Condition') ?>
+				<?= __('Condition'); ?>
             </th>
             <th>
-				<?= __('Preference') ?>
+				<?= __('Preference'); ?>
             </th>
         </tr>
         </thead>
@@ -41,7 +41,7 @@ use Cake\Core\Configure;
                         </td>
 					<?php endif; ?>
                     <td>
-						<?= h($condition->title) ?>
+						<?= h($condition->title); ?>
                     </td>
                     <td>
 						<?php
@@ -63,7 +63,7 @@ use Cake\Core\Configure;
 							],
 							'value' => $value,
 							'label' => false
-						])
+						]);
 						
 						?>
                     </td>
@@ -76,12 +76,10 @@ use Cake\Core\Configure;
     </table>
 
     <p class="text-right">
-		<?= $this->Form->button('Save Preferences') ?>
+		<?= $this->Form->button('Save Preferences'); ?>
     </p>
 	
-	<?= $this->Form->end() ?>
-	
-	
+	<?= $this->Form->end(); ?>
 	
 	<?php
 	
@@ -92,3 +90,7 @@ use Cake\Core\Configure;
 	?>
 
 </div>
+
+
+
+
