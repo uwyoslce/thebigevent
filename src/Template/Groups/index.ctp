@@ -7,31 +7,34 @@
 	<?php if( empty($groups) ): ?>
 		<?= __("There are currently no groups"); ?>
 	<?php else: ?>
-		<table>
+		<table class="table-auto">
 			<thead>
 				<tr>
+					<th>&nbsp;</th>
 					<th>Title</th>
-					<th>Join Token</th>
+					<th>Join&nbsp;Token</th>
 					<th>Members</th>
-					<th></th>
+					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
 			<?php foreach($groups as $group): ?>
 				<tr>
-
-					<td><?= h($group->title) ?></td>
-					<td><?= h($group->join_token) ?></td>
-					<td><?= number_format($group->member_count) ?></td>
-					<td>
-						<?= $this->Html->link(__('Manage'), [
+					<td class="cell-shrink"><?= $this->Html->link(__('Manage'), [
 							'action' => 'manage',
 							$group->group_id
-						]) ?>
-					<?= $this->Form->postLink(__('Delete'), [
+						], [
+							'class' => 'button button-uwyo-gold tiny'
+						]) ?></td>
+					<td><?= h($group->title) ?></td>
+					<td class="cell-shrink"><?= h($group->join_token) ?></td>
+					<td class="cell-shrink"><?= number_format($group->member_count) ?></td>
+					<td class="cell-shrink"><?= $this->Form->postLink(__('Delete'), [
 						'action' => 'delete',
 						$group->group_id
-					]); ?></td>
+					], [
+							'class' => 'button alert tiny'
+						]); ?></td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>

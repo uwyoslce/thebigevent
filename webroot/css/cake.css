@@ -7,6 +7,24 @@ td .button {
     margin-bottom: 0;
 }
 
+td .button-group {
+    white-space: nowrap;
+}
+
+.u-nowrap {
+    white-space: nowrap;
+}
+
+.table-auto {
+    table-layout:   auto;
+}
+.cell-shrink {
+    width: 0;
+}
+.cell-grow {
+    width: 100%;
+}
+
 .component .is-saving,
 .component .is-saved,
 .component .is-error,

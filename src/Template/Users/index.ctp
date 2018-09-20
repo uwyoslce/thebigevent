@@ -54,19 +54,19 @@
 	<?php if (empty($users)): ?>
         <p>There are no users.</p>
 	<?php else: ?>
-        <table>
+        <table class="table-auto">
             <thead>
             <tr>
 				<?php if (\Cake\Core\Configure::read('debug')): ?>
                     <th>user_id</th>
 				<?php endif; ?>
                 <th>&nbsp;</th>
-                <th><?= h(__('Full Name & Username')) ?></th>
-                <th><?= h(__('Phone Number')) ?></th>
-                <th><?= h(__('Participating')) ?></th>
-                <th><?= h(__('Unsigned Signatures')) ?></th>
-                <th><?= h(__('Role')) ?></th>
-                <th><?= h(__('Email')) ?></th>
+                <th class="u-nowrap"><?= h(__('Full Name & Username')) ?></th>
+                <th class="u-nowrap"><?= h(__('Phone Number')) ?></th>
+                <th class="u-nowrap"><?= h(__('Participating')) ?></th>
+                <th class="u-nowrap"><?= h(__('Unsigned Signatures')) ?></th>
+                <th class="u-nowrap"><?= h(__('Role')) ?></th>
+                <th class="u-nowrap"><?= h(__('Email')) ?></th>
 
             </tr>
             </thead>
@@ -75,15 +75,15 @@
 			foreach ($users as $user): ?>
                 <tr class="user user--<?= $user->role ?>">
 					<?php if (\Cake\Core\Configure::read('debug')): ?>
-                        <td><?= $user->user_id ?></td>
+                        <td class="cell-shrink"><?= $user->user_id ?></td>
 					<?php endif; ?>
-                    <td>
+                    <td class="cell-shrink">
 						<?= $this->Html->link(__('Manage Conditions'), [
 							'action' => 'conditions',
 							$user->user_id,
 						],
 							[
-								'class' => 'button button-uwyo-gold tiny',
+								'class' => 'button button-uwyo-gold tiny u-nowrap',
 							]); ?>
                     </td>
                     <td>
@@ -91,16 +91,16 @@
                         @<?= h($user->username) ?>
                     </td>
 
-                    <td>
+                    <td class="cell-shrink">
 						<?php if (!empty($user->phone)): ?>
 							<?= h($user->phone) ?>
 						<?php else: ?>
                             &mdash;
 						<?php endif; ?>
                     </td>
-                    <td><?= ($user->participating) ? __("Yes") : __("No") ?></td>
-                    <td><?= number_format($user->signatures_unsigned) ?></td>
-                    <td>
+                    <td class="cell-shrink"><?= ($user->participating) ? __("Yes") : __("No") ?></td>
+                    <td class="cell-shrink"><?= number_format($user->signatures_unsigned) ?></td>
+                    <td class="cell-shrink u-nowrap">
 						<?php if ('admin' == $user->role) {
 							echo __('Administrator');
 						}
@@ -114,13 +114,13 @@
 						}
 						?>
                     </td>
-                    <td>
+                    <td class="cell-shrink">
 						<?php
 						$emails[] = $user->email;
 						echo $this->Html->link(
 							__('Email {0}', [$user->first_name]),
 							sprintf('mailto:%s', $user->email),
-							['class' => 'button button-primary tiny']
+							['class' => 'button button-primary tiny button-block']
 						)
 						?>
                     </td>
@@ -139,7 +139,7 @@
                 <td>&nbsp;</td>
                 <td><?= $this->Html->link(__('Email All'),
 						sprintf('mailto:%s', implode(';', $emails)),
-                            ['class' => 'button button-primary large']
+                            ['class' => 'button button-primary large u-nowrap']
 					) ?>
                 </td>
             </tr>

@@ -16,7 +16,7 @@
 			<?= __('Upload a document to begin gathering signatures.') ?>
 		</p>
 	<?php else: ?>
-		<table>
+		<table class="table-auto">
 			<thead>
 				<tr>
 					<th></th>
@@ -28,16 +28,17 @@
 			</thead>
 			<?php foreach ( $documents as $document ): ?>
 				<tr>
-					<td><?php
+					<td class="cell-shrink"><div class="button-group"><?php
 						echo $this->Html->link( __( 'Summary' ), ['action' => 'view', $document->document_id], ['class'=>'button tiny success'] );
-						echo $this->Html->link( __( 'Download' ), $document->path, [ 'class' => 'button tiny secondary' ] ); ?></td>
+						echo $this->Html->link( __( 'Download' ), $document->path, [ 'class' => 'button tiny secondary' ] ); ?></div></td>
 					<td>
-						<strong><?= h( $document->title ); ?></strong><br>
+						<strong class="u-nowrap"><?= h( $document->title ); ?></strong><br>
 						<?= $document->created->nice( $AuthUser['time_zone']) ?>
 					</td>
-					<td><?= number_format($document->distributed_count) ?></td>
-					<td><?= number_format($document->signed_count) ?></td>
-					<td>
+					<td class="cell-shrink"><?= number_format($document->distributed_count) ?></td>
+					<td class="cell-shrink"><?= number_format($document->signed_count) ?></td>
+					<td class="cell-shrink">
+						<div class="button-group">
 					<?php
 						echo $this->Html->link( __( 'Distribute' ), [
 							'action' => 'distribute',
@@ -54,6 +55,7 @@
 							$document->document_id
 						], ['class' => 'button tiny alert']);
 					?>
+					</div>
 					</td>
 				</tr>
 			<?php endforeach; ?>
